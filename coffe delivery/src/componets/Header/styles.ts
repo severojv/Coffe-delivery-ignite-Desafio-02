@@ -5,23 +5,39 @@ export const HeaderContainer=styled.header`
     align-items: center;
     justify-content: space-between;
     margin-top: 2rem;
-    margin-left: 4rem;
-    margin-right: 4rem;
+
     nav{
-        display    :flex ;
+        display:flex ;
         gap: 1rem;
         
     }
     a{
-        border-radius: 8px;
-        border-color: ${props=>props.theme['yellow']};
-        width: 143px;
-        height: 2.375rem;
         display: flex;
         align-items: center;
         justify-content: center;
         border: 1;
+        text-decoration: none;
+        background: transparent;
         
-
+        
     }
+  
+`
+export const ButtonContainer=styled.button`
+        border-radius: 8px;
+        border-color: transparent;
+        height: 2.375rem;
+
+`
+export const EnderecoButtonContainer=styled(ButtonContainer)`
+     background: ${props=>props.theme['purple-light']};
+     width: 8.938rem;
+
+
+`
+export const CarrinhoButtonContainer=styled(ButtonContainer)`
+     background: ${props=>props.theme['yellow-light']};
+     width:  2.375rem;
+
+
 `

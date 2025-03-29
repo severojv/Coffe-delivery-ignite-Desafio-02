@@ -11,6 +11,8 @@ import 'styled-components'
         body{
             background: ${props=>props.theme['background']};
             color:${props=>props.theme['base-text']};
+            margin-left: 10rem;
+            margin-right: 10rem;
         }
         
         body ,input , textarea ,button{

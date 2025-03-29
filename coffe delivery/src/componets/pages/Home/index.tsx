@@ -1,5 +1,8 @@
+import { Intro } from "../../Intro"
+
+
 export function Home(){
     return(
-        <div>Home</div>
+        <Intro/>
     )
 }
