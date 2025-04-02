@@ -1,10 +1,14 @@
 import styled from "styled-components";
+
+export const PrincipalDiv=styled.div`
+    width: 100%;
+    max-width: 1440px;
+`
 export const IntroWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
-    max-width: 1440px;
+
     gap: 5rem;
 `;
 export const IntroContainer = styled.div`
@@ -14,7 +18,7 @@ export const IntroContainer = styled.div`
     `
 export const HIntroContainer = styled(IntroContainer)`
     font-family: "Baloo 2", sans-serif;
-    margin-top: 5rem;
+    margin-top: 1rem;
     font-weight:bold;
     font-size: 1.5rem;
 

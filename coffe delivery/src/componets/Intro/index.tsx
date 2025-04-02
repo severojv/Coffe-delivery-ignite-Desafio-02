@@ -1,9 +1,13 @@
 import { BenefitsList } from "./ListIntro";
-import {  HIntroContainer, IMG, IntroContainer, IntroWrapper, TextContents } from "./styles";
+import { HIntroContainer, IMG, IntroContainer, IntroWrapper, PrincipalDiv, TextContents } from "./styles";
 import imagem from '../../assets/Imagem.png'
+import { HeaderCoffe } from "./CoffeList/HeaderCoffe";
+import { CardCoffe } from "./CoffeList/CardCoffe";
 
 export function Intro() {
     return (
+        <PrincipalDiv>
+
         <IntroWrapper>
 
             <TextContents >
@@ -22,7 +26,9 @@ export function Intro() {
                 <img src={imagem} alt="" />
             </IMG>
         </IntroWrapper>
-
+        <HeaderCoffe/>
+        <CardCoffe></CardCoffe>
+        </PrincipalDiv>
 
     )
 }
