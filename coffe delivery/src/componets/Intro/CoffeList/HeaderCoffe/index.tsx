@@ -1,5 +1,7 @@
 import { ButtonCoffe, HeaderCoffeContainne } from "./styles";
-
+function handleTradicional(){
+    
+}
 export function HeaderCoffe(){
     return(
         <HeaderCoffeContainne>
@@ -9,7 +11,9 @@ export function HeaderCoffe(){
         </div>
 
         <ButtonCoffe>
-            <button>TRADICIONAL</button>
+            <button
+            onClick={handleTradicional}>
+                TRADICIONAL</button>
             <button>ESPECIAL</button>
             <button>COM LEITE</button>
             <button>ALCOÓLICO</button>
