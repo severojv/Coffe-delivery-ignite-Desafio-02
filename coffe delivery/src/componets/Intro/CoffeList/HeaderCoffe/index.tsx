@@ -1,8 +1,9 @@
 import { ButtonCoffe, HeaderCoffeContainne } from "./styles";
-function handleTradicional(){
-    
-}
+import { CoffeContext } from "../../../../Context/CoffeContext"; 
+import { useContext } from "react";
+
 export function HeaderCoffe(){
+    const {filterCoffes} =useContext(CoffeContext)
     return(
         <HeaderCoffeContainne>
 
@@ -11,13 +12,31 @@ export function HeaderCoffe(){
         </div>
 
         <ButtonCoffe>
-            <button
-            onClick={handleTradicional}>
-                TRADICIONAL</button>
-            <button>ESPECIAL</button>
-            <button>COM LEITE</button>
-            <button>ALCOÓLICO</button>
-            <button>GELADO</button>
+            <button onClick={() => filterCoffes("TODOS")}
+            >
+                TODOS
+            </button>
+            <button onClick={() => filterCoffes("TRADICIONAL")}
+            >
+                TRADICIONAL
+            </button>
+            <button onClick={() => filterCoffes("ESPECIAL")}
+            >
+                ESPECIAL
+            </button>
+            <button onClick={() => filterCoffes("COM LEITE")}
+            >
+                COM LEITE
+            </button>
+            <button onClick={() => filterCoffes("ALCOOLICO")}
+            >
+                ALCOÓLICO
+            </button>
+            <button onClick={() => filterCoffes("GELADO")}
+            >
+                GELADO
+            </button>
+
         </ButtonCoffe>
 
         </HeaderCoffeContainne>

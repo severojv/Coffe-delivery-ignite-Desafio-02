@@ -8,7 +8,7 @@ export function InputNumber() {
         <Tomagap>
 
             <ButtonInputCount><Minus size={14} /></ButtonInputCount>
-            <input type="number" value="1" min="1"/>
+            <input type="number"  min="1" defaultValue="1"/>
             <ButtonInputCount><Plus size={14} /></ButtonInputCount>
         </Tomagap>
             <ButtonInputCounts><ShoppingCart size={18} weight="fill"color="white"/></ButtonInputCounts>
