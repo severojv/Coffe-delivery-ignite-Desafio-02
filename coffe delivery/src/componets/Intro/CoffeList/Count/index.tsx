@@ -1,17 +1,41 @@
 import { Minus, Plus, ShoppingCart } from "@phosphor-icons/react";
 import { ButtonInputCount, ButtonInputCounts, InputNumberContainner, Tomagap } from "./style";
+import { useContext ,useEffect,useState} from "react";
+import { CoffeContext ,Coffe} from "../../../../Context/CoffeContext"; 
 
-export function InputNumber() {
+interface InputNumberProps {
+    coffe: Coffe;
+}
+
+export function InputNumber({coffe}:InputNumberProps) {
+    const {addToCart,cart}=useContext(CoffeContext);
+    const [quantity,setQuantity]=useState(1);
+    useEffect(() => {
+        console.log("Carrinho atualizado:", cart);
+      }, [cart]);
+    function diminuir(){
+        setQuantity((prev)=> prev > 1 ? prev -1 : 1);
+    }
+    function aumentar(){
+        setQuantity((prev)=> prev+1);
+    }
+
+    function handleAddToCart(){
+        addToCart({...coffe,qnt:quantity})
+        setQuantity(1)
+   
+    }
+
     return (
 
         <InputNumberContainner>
         <Tomagap>
 
-            <ButtonInputCount><Minus size={14} /></ButtonInputCount>
-            <input type="number"  min="1" defaultValue="1"/>
-            <ButtonInputCount><Plus size={14} /></ButtonInputCount>
+            <ButtonInputCount onClick={diminuir}><Minus size={14} /></ButtonInputCount>
+            <span>{quantity}</span>
+            <ButtonInputCount onClick={aumentar}><Plus size={14} /></ButtonInputCount>
         </Tomagap>
-            <ButtonInputCounts><ShoppingCart size={18} weight="fill"color="white"/></ButtonInputCounts>
+            <ButtonInputCounts onClick={handleAddToCart}><ShoppingCart size={18} weight="fill"color="white"/></ButtonInputCounts>
         </InputNumberContainner>
     )
 }

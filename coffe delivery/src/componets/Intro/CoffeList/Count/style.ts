@@ -4,15 +4,10 @@ export const InputNumberContainner = styled.div`
 display: flex;
 align-items: center;
 
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-}
 
-input[type="number"] {
-  -moz-appearance: textfield;
-}
-input[type="number"] {
+
+
+span {
   width: 30px;
   height: 38px;
 
