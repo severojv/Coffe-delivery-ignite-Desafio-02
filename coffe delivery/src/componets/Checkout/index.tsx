@@ -1,11 +1,17 @@
+import { CoffesSelecteds } from "./CoffesSelecteds";
 import { Endereco } from "./Endereco";
 import { Pagamento } from "./Pagamento";
+import { DivGridContainer } from "./styles";
 
 export function Checkout(){
     return(
-        <div>
+        <DivGridContainer>
+            <div>
             <Endereco></Endereco>
             <Pagamento></Pagamento>
-        </div>
+
+            </div>
+            <CoffesSelecteds></CoffesSelecteds>
+        </DivGridContainer>
     )
 }

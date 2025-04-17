@@ -1,5 +1,5 @@
 import { CoffeItensContainer, DescContainer, DivCoffeContainer, ImagemContaner, NomeCoffeContainer, SpanPreco, TypeCoffe } from "./styles";
-import { CoffeContext } from "../../../../Context/CoffeContext"; 
+import { CoffeContext } from "../../../../Context/CoffeContext";
 import { useContext } from "react";
 import { InputNumber } from "../Count";
 
@@ -20,32 +20,34 @@ export const CoffeItem = ({ coffe }: { coffe: Coffe }) => {
     return (
         <DivCoffeContainer>
             <ImagemContaner><img src={coffe.imagem} alt={coffe.nome} /></ImagemContaner>
-            <TypeCoffe>{coffe.tipo.map((t) => (
-                <span key={t}>{t}</span>
-            ))}</TypeCoffe>
+            <TypeCoffe>
+                {coffe.tipo?.map((t) => (
+                    <span key={`${coffe.nome}-${t}`}>{t}</span>
+                ))}
+            </TypeCoffe>
             <NomeCoffeContainer>{coffe.nome}</NomeCoffeContainer>
             <DescContainer>{coffe.descricao}</DescContainer>
-            <SpanPreco>R$ {coffe.preco.toFixed(2)}<InputNumber /></SpanPreco>
+            <SpanPreco>R$ {coffe.preco !== undefined ? coffe.preco.toFixed(2) : '0.00'} <InputNumber coffe={coffe} /></SpanPreco>
         </DivCoffeContainer>
     )
 }
 
-  function ShowCoffes(){
-    const {filteredCoffes} =useContext(CoffeContext)
+function ShowCoffes() {
+    const { filteredCoffes } = useContext(CoffeContext)
 
-    return(
+    return (
 
         filteredCoffes.map((coffe) => (
             <CoffeItem key={coffe.nome} coffe={coffe} />
         ))
     )
- }
+}
 
 export function CardCoffe() {
 
     return (
         <CoffeItensContainer>
-            <ShowCoffes/>
+            <ShowCoffes />
         </CoffeItensContainer>
 
 

@@ -9,6 +9,13 @@ export const DivForm = styled.div`
     flex-wrap: wrap;
     gap: 12px;
     margin-top: 2rem;
+    
+    button{
+      border-radius: 8px;
+      border: 1px solid ${props => props.theme['base-button']};
+
+
+    }
 `
 
 const InputBase = styled.input`

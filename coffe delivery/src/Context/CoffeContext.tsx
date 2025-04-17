@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import Americano from '../assets/coffes/Type=Americano.png';
 import Arabe from '../assets/coffes/Type=Árabe.png';
 import ComLeite from '../assets/coffes/Type=Café com Leite.png';
@@ -20,12 +20,24 @@ interface CoffeContextType {
     filteredCoffes: Coffe[];
     filterCoffes: (tipocofee: TypesCoffe|"TODOS") => void
     addToCart:(coffe:Coffe)=>void;
+    removeToCart:(coffe:Coffe)=>void;
     cart:Coffe[];
     total:number;
     totalItems:number
 
+    endereco:Endereco;
+    setEndereco: React.Dispatch<React.SetStateAction<Endereco>>;
+
+    selected:SelectPay;
+    setSelected: React.Dispatch<React.SetStateAction<SelectPay>>;
+
+
+
 }
 
+interface SelectPay{
+    selecionado:string;
+}
 export interface Coffe {
     nome: string;
     imagem: string;
@@ -34,8 +46,20 @@ export interface Coffe {
     preco: number;
     qnt?:number;
 }
+interface Endereco {
+  cep?: string;
+  logradouro?: string;
+  complemento?: string;
+  bairro?: string;
+  localidade?: string;
+  uf?: string;
+  numero?:string;
+}
 
 export const CoffeContext = createContext({} as CoffeContextType)
+
+
+
 const coffes : Coffe[]=[
     {qnt:1, nome: "Expresso Americano", preco: 9.90, imagem: Americano, tipo: ["TRADICIONAL"]as TypesCoffe[], descricao: "Bebida preparada com café expresso e cubos de gelo" },
     {qnt:1,nome: "Árabe", preco: 9.90, imagem: Arabe, tipo: ["ESPECIAL"]as TypesCoffe[], descricao: "Café forte com especiarias" },
@@ -55,6 +79,14 @@ const coffes : Coffe[]=[
 
 export function CoffeProvider({ children }: { children: React.ReactNode }) {
 
+    const [endereco,setEndereco]=useState<Endereco>({});
+    const [selected, setSelected] =  useState<SelectPay>({ selecionado: "" });
+
+    useEffect(()=>{
+        const stateJSON=JSON.stringify(endereco)
+        localStorage.setItem('@Coffe-Delivery:Endereco',stateJSON)
+
+    },[endereco])
     const [filteredCoffes, setFilteredCoffes] = useState<Coffe[]>(coffes);
     const [cart,setCart] =useState<Coffe[]>([])
     const total = cart.reduce((sum, coffe) => sum + coffe.preco * (coffe.qnt ?? 1), 0);
@@ -62,7 +94,7 @@ export function CoffeProvider({ children }: { children: React.ReactNode }) {
 
 function filterCoffes(tipocofee: TypesCoffe|"TODOS") {
     if (tipocofee === "TODOS") {
-        setFilteredCoffes(coffes); // 🔹 Exibe todos os cafés
+        setFilteredCoffes(coffes);
     } else {
         setFilteredCoffes(coffes.filter(coffe => coffe.tipo.includes(tipocofee)));
     }
@@ -74,16 +106,38 @@ function filterCoffes(tipocofee: TypesCoffe|"TODOS") {
                 if(existe){
                     return prevCart.map(c=>c.nome==newCart.nome ?{...c,qnt:(c.qnt||0)+(newCart.qnt||1)}:c)
                 }else{
-                    return [...prevCart,newCart]
+                    return [...prevCart, { ...newCart, qnt: newCart.qnt ?? 1 }];
                 }
 
             }
         )
     }
-
-
+    function removeToCart(newCart: Coffe) {
+        setCart(prevCart => {
+          const existe = prevCart.find(c => c.nome === newCart.nome);
+      
+          if (existe) {
+            return prevCart
+              .map(c => {
+                if (c.nome === newCart.nome) {
+                  const novaQnt = (c.qnt || 0) - (newCart.qnt || 1);
+                  if (novaQnt > 0) {
+                    return { ...c, qnt: novaQnt };
+                  } else {
+                    return null; 
+                  }
+                }
+                return c;
+              })
+              .filter(c => c !== null) as Coffe[];
+          } else {
+            return prevCart;
+          }
+        });
+      }
+      
     return (
-        <CoffeContext.Provider value={{ filteredCoffes, filterCoffes,addToCart,cart ,total,totalItems}}>
+        <CoffeContext.Provider value={{ filteredCoffes, filterCoffes,addToCart,cart ,total,totalItems,endereco,setEndereco,setSelected,selected,removeToCart}}>
             {children}
         </CoffeContext.Provider>
     );

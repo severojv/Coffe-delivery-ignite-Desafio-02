@@ -9,13 +9,13 @@ import { CoffeContext } from '../../Context/CoffeContext';
 export function Header() {
     const navegate = useNavigate();
     const { totalItems } = useContext(CoffeContext);
-
+    const endereco =useContext(CoffeContext)
     return (
         <HeaderContainer>
             <img src={logo} alt="" onClick={() => navegate("/")} />
             <nav>
                 <EnderecoButtonContainer type="button">
-                    <NavLink to="/checkout" title='endereco'><MapPin size={24} />Porto Alegre,RS </NavLink>
+                    <NavLink to="/checkout" title='endereco'><MapPin size={24} />{endereco.endereco.localidade}/{endereco.endereco.uf} </NavLink>
                 </EnderecoButtonContainer>
                 <CarrinhoButtonContainer>
                     <NavLink to="/carrinho" title='carrinho'><ShoppingCartSimple size={24} /></NavLink>
