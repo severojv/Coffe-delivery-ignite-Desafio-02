@@ -1,6 +1,5 @@
-//criando estilos globais
+//criando estilos globais    || adicionar no app dentro do provaider
 import { createGlobalStyle } from "styled-components";
-import 'styled-components'
 
     export const GlobalStyle = createGlobalStyle`
         *{

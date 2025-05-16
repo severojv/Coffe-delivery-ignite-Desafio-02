@@ -15,7 +15,7 @@ function App() {
     <BrowserRouter>
       <Router/>
     </BrowserRouter>
-    <GlobalStyle></GlobalStyle>
+    <GlobalStyle/>
     </ThemeProvider>
     </CoffeProvider>
   )

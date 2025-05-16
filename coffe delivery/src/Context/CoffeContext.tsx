@@ -79,16 +79,36 @@ const coffes : Coffe[]=[
 
 export function CoffeProvider({ children }: { children: React.ReactNode }) {
 
-    const [endereco,setEndereco]=useState<Endereco>({});
-    const [selected, setSelected] =  useState<SelectPay>({ selecionado: "" });
+  const [cart, setCart] = useState<Coffe[]>(() => {
+    const storedState = localStorage.getItem('@Coffe-Delivery:AppState');
+    if (storedState) {
+      const parsed = JSON.parse(storedState);
+      return parsed.cart ?? [];
+    }
+    return [];
+  });
+  
+  const [endereco, setEndereco] = useState<Endereco>(() => {
+    const storedState = localStorage.getItem('@Coffe-Delivery:AppState');
+    if (storedState) {
+      const parsed = JSON.parse(storedState);
+      return parsed.endereco ?? {};
+    }
+    return {};
+  });
+  
+      const [selected, setSelected] =  useState<SelectPay>({ selecionado: "" });
 
     useEffect(()=>{
-        const stateJSON=JSON.stringify(endereco)
-        localStorage.setItem('@Coffe-Delivery:Endereco',stateJSON)
+        const stateJSON=JSON.stringify({
+          endereco,
+          cart
+        })
+        localStorage.setItem('@Coffe-Delivery:AppState', stateJSON);
 
-    },[endereco])
+    },[endereco,cart])
+
     const [filteredCoffes, setFilteredCoffes] = useState<Coffe[]>(coffes);
-    const [cart,setCart] =useState<Coffe[]>([])
     const total = cart.reduce((sum, coffe) => sum + coffe.preco * (coffe.qnt ?? 1), 0);
     const totalItems = cart.reduce((sum, coffe) => sum + (coffe.qnt ?? 1), 0);
 
